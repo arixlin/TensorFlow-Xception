@@ -7,6 +7,7 @@ import time
 import os
 from train_flowers import get_split, load_batch
 import matplotlib.pyplot as plt
+import six.moves.xrange as xrange
 from tensorflow.python.framework import graph_util
 plt.style.use('ggplot')
 slim = tf.contrib.slim

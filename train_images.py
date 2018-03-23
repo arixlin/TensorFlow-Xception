@@ -53,11 +53,11 @@ def run():
          decay_steps = int(num_epochs_before_decay * num_steps_per_epoch)
 
          with slim.arg_scope(xception_arg_scope()):
-             logits, end_points = xception(train_batch, 16, is_training = True)
+             logits, end_points = xception(train_batch, num_classes, is_training=True)
 
-         one_hot_labels = slim.one_hot_encoding(train_label_batch, 16)
+         one_hot_labels = slim.one_hot_encoding(train_label_batch, num_classes)
 
-         loss = tf.losses.softmax_cross_entropy(onehot_labels = one_hot_labels, logits = logits)
+         loss = tf.losses.softmax_cross_entropy(onehot_labels=one_hot_labels, logits=logits)
          total_loss = tf.losses.get_total_loss()
 
          global_step = get_or_create_global_step()
@@ -67,7 +67,7 @@ def run():
          lr = tf.train.exponential_decay(learning_rate=initial_learning_rate,
                                          global_step=global_step,
                                          # decay_steps=decay_steps,
-                                         decay_steps = 1000,
+                                         decay_steps=1000,
                                          decay_rate=learning_rate_decay_factor,
                                          staircase=True)
 
